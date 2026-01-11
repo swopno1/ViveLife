@@ -4,7 +4,7 @@ import React from 'react';
 export default function TabLayout() {
   return (
     <Tabs>
-      <Tabs.Screen name="notes" options={{ title: 'Notes' }} />
+      <Tabs.Screen name="index" options={{ title: 'Home' }} />
     </Tabs>
   );
 }
