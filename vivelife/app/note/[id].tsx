@@ -47,7 +47,7 @@ export default function EditNoteScreen() {
   }
 
   if (!note) {
-    return <YStack flex={1} justifyContent="center" alignItems="center"><Text>Note not found.</Text></YYStack>;
+    return <YStack flex={1} justifyContent="center" alignItems="center"><Text>Note not found.</Text></YStack>;
   }
 
   return (
