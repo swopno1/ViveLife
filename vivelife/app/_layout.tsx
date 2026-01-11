@@ -12,13 +12,15 @@ export default function AppLayout() {
   }, [checkSession]);
 
   useEffect(() => {
-    const inAuthGroup = segments[0] === '(auth)';
+    const isAuthRoute = ['sign-in', 'sign-up', 'forgot-password'].includes(
+      segments[0] as string
+    );
 
-    if (session && !inAuthGroup) {
-      // Redirect authenticated users to the main app
-      router.replace('/(tabs)/note');
-    } else if (!session) {
-      // Redirect unauthenticated users to the sign-in screen
+    if (session && isAuthRoute) {
+      // User is logged in but on an auth page, send them to the app's home.
+      router.replace('/notes');
+    } else if (!session && !isAuthRoute) {
+      // User is not logged in and not on an auth page, send them to sign-in.
       router.replace('/sign-in');
     }
   }, [session, segments, router]);
