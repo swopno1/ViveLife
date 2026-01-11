@@ -7,19 +7,19 @@ import {
   TextArea,
   YStack,
   XStack,
-} from 'tamagui';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { useNoteStore } from '../../../src/stores/noteStore';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useAuthStore } from '../../../src/stores/auth';
-import { Tag } from '../../../src/types/db';
-import { X } from '@tamagui/lucide-icons';
+} from "tamagui";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { X } from "@tamagui/lucide-icons";
+import { useAuthStore } from "@/src/stores/auth";
+import { Tag } from "@/src/types/db";
+import { useNoteStore } from "@/src/stores/noteStore";
 
 const noteSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
+  title: z.string().min(1, "Title is required"),
   content: z.string().optional(),
 });
 
@@ -29,7 +29,7 @@ export default function NoteDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { session } = useAuthStore();
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
   const [currentTags, setCurrentTags] = useState<Partial<Tag>[]>([]);
 
   const {
@@ -43,7 +43,7 @@ export default function NoteDetailScreen() {
     deleteNote,
   } = useNoteStore();
 
-  const isNew = id === 'new';
+  const isNew = id === "new";
 
   const {
     control,
@@ -52,7 +52,7 @@ export default function NoteDetailScreen() {
     formState: { errors },
   } = useForm<NoteFormData>({
     resolver: zodResolver(noteSchema),
-    defaultValues: { title: '', content: '' },
+    defaultValues: { title: "", content: "" },
   });
 
   useEffect(() => {
@@ -65,8 +65,8 @@ export default function NoteDetailScreen() {
   useEffect(() => {
     if (selectedNote && !isNew) {
       reset({
-        title: selectedNote.title || '',
-        content: selectedNote.content || '',
+        title: selectedNote.title || "",
+        content: selectedNote.content || "",
       });
       setCurrentTags(selectedNote.tags);
     }
@@ -79,7 +79,7 @@ export default function NoteDetailScreen() {
       const existingTag = allUserTags.find((t) => t.name === tagName);
       setCurrentTags([...currentTags, existingTag || { name: tagName }]);
     }
-    setTagInput('');
+    setTagInput("");
   };
 
   const handleRemoveTag = (tagName: string) => {
@@ -138,7 +138,9 @@ export default function NoteDetailScreen() {
                 value={value}
                 size="$4"
               />
-              {errors.title && <Text color="$red10">{errors.title.message}</Text>}
+              {errors.title && (
+                <Text color="$red10">{errors.title.message}</Text>
+              )}
             </YStack>
           )}
         />
@@ -186,13 +188,13 @@ export default function NoteDetailScreen() {
               placeholder="Note Content"
               onBlur={onBlur}
               onChangeText={onChange}
-              value={value ?? ''}
+              value={value ?? ""}
               flex={1}
             />
           )}
         />
         <Form.Trigger asChild>
-          <Button theme="blue">{isNew ? 'Create Note' : 'Save Changes'}</Button>
+          <Button theme="blue">{isNew ? "Create Note" : "Save Changes"}</Button>
         </Form.Trigger>
       </Form>
       {!isNew && (

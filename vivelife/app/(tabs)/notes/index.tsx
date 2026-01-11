@@ -7,11 +7,11 @@ import {
   Paragraph,
   Card,
   XStack,
-} from 'tamagui';
-import { useNoteStore } from '../../../src/stores/noteStore';
-import { useEffect } from 'react';
-import { Link } from 'expo-router';
-import { Plus } from '@tamagui/lucide-icons';
+} from "tamagui";
+import { useNoteStore } from "@/src/stores/noteStore";
+import { useEffect } from "react";
+import { Link } from "expo-router";
+import { Plus } from "@tamagui/lucide-icons";
 
 export default function NotesScreen() {
   const { notes, loading, error, fetchNotes } = useNoteStore();
@@ -43,10 +43,10 @@ export default function NotesScreen() {
                 <Card.Header>
                   <YStack gap="$2">
                     <Text fontSize="$6" fontWeight="bold">
-                      {note.title || 'Untitled Note'}
+                      {note.title || "Untitled Note"}
                     </Text>
                     <Paragraph theme="alt2" numberOfLines={2}>
-                      {note.content || 'No content'}
+                      {note.content || "No content"}
                     </Paragraph>
                     {note.tags && note.tags.length > 0 && (
                       <XStack gap="$2" flexWrap="wrap">
